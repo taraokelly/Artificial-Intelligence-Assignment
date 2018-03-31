@@ -1,46 +1,13 @@
-package ie.gmit.sw;
+package ie.gmit.sw.cipher;
 
 import java.awt.Point;
 
 public class PlayFairCipher {
 	
-	private String[][] cipherTable;
+	private PlayfairKey key = new PlayfairKey();
 
-	public PlayFairCipher(String key, String message) {
-		this.cipherTable = this.buildCipherTable(parseString(key));
-	}
+	public PlayFairCipher() {}
 
-	private String parseString(String parse) {
-		parse = parse.toUpperCase().replaceAll("[^A-Z]", "").replace("J", "I");
-		return parse;
-	}
-	private String[][] buildCipherTable(String key) {
-		String[][] cipherTable = new String[5][5];
-		String keyString = parseString(key) + "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-
-		for (int i = 0; i < 5; i++){
-			for (int j = 0; j < 5; j++){
-				cipherTable[i][j] = "";
-			}			
-		}
-
-		for (int k = 0; k < keyString.length(); k++) {
-			boolean repeat = false;
-			boolean used = false;
-			
-			for (int i = 0; i < 5; i++) {
-				for (int j = 0; j < 5; j++) {
-					if (cipherTable[i][j].equals("" + keyString.charAt(k))) {
-						repeat = true;
-					} else if (cipherTable[i][j].equals("") && !repeat && !used) {
-						cipherTable[i][j] = "" + keyString.charAt(k);
-						used = true;
-					}
-				}
-			}
-		}
-		return cipherTable;
-	}
 	private String[] buildDiagraph(String di[], Integer length) {
 		String[] d = new String[length];
 		for (int i = 0; i < length; i++) {
@@ -64,12 +31,12 @@ public class PlayFairCipher {
 				c1 = c2;
 				c2 = temp;
 			}
-			d[i] = cipherTable[r1][c1] + "" + cipherTable[r2][c2];
+			d[i] = getKeyTable()[r1][c1] + "" + getKeyTable()[r2][c2];
 		}
 		return d;
 	}
 	public String encrypt(String plainText) {
-		String p = parseString(plainText);
+		String p = this.key.parseString(plainText);
 		Integer l = (int) p.length() / 2 + p.length() % 2;
 
 		for (int i = 0; i < (l - 1); i++) {
@@ -86,18 +53,18 @@ public class PlayFairCipher {
 			digraph[j] = p.charAt(2 * j) + "" + p.charAt(2 * j + 1);
 		}
 
-		String out = "";
+		String cipherText = "";
 		String[] encDigraphs = new String[l];
 		encDigraphs = buildDiagraph(digraph, l);
 		for (int k = 0; k < l; k++)
-			out = out + encDigraphs[k];
-		return out;
+			cipherText = cipherText + encDigraphs[k];
+		return cipherText;
 	}
-	public String decrypt(String out) {
-		String cihperText = "";
-		for (int i = 0; i < out.length() / 2; i++) {
-			char a = out.charAt(2 * i);
-			char b = out.charAt(2 * i + 1);
+	public String decrypt(String cipherText) {
+		String plainText = "";
+		for (int i = 0; i < cipherText.length() / 2; i++) {
+			char a = cipherText.charAt(2 * i);
+			char b = cipherText.charAt(2 * i + 1);
 			int r1 = (int) getPoint(a).getX();
 			int r2 = (int) getPoint(b).getX();
 			int c1 = (int) getPoint(a).getY();
@@ -113,22 +80,25 @@ public class PlayFairCipher {
 				c1 = c2;
 				c2 = temp;
 			}
-			cihperText = cihperText + cipherTable[r1][c1] + cipherTable[r2][c2];
+			plainText = plainText + getKeyTable()[r1][c1] + getKeyTable()[r2][c2];
 		}
-		return cihperText;
+		return plainText;
 	}
-	
-	public String[][] getTable() {
-		return cipherTable;
-	}
+ 
 	public void setKey(String key) {
-		this.cipherTable = this.buildCipherTable(parseString(key));
+		this.key.setKey(key);
+	}
+	public String getKey() {
+		return this.key.getKey();
+	}
+	public String[][] getKeyTable() {
+		return this.key.getKeyTable();
 	}
 	private Point getPoint(char c) {
 		Point pt = new Point(0, 0);
 		for (int i = 0; i < 5; i++)
 			for (int j = 0; j < 5; j++)
-				if (c == cipherTable[i][j].charAt(0))
+				if (c == getKeyTable()[i][j].charAt(0))
 					pt = new Point(i, j);
 		return pt;
 	}

@@ -1,10 +1,11 @@
-package ie.gmit.sw;
+package ie.gmit.sw.cipher;
 
 public class PlayfairKey {
+	
 	private String key;
 	private String[][] keyTable;
 	
-	private String parseString(String parse) {
+	public String parseString(String parse) {
 		parse = parse.toUpperCase().replaceAll("[^A-Z]", "").replace("J", "I");
 		return parse;
 	}
@@ -35,11 +36,11 @@ public class PlayfairKey {
 		}
 		return keyTable;
 	}
+	
 	public void setKey(String key) {
 		this.key = this.parseString(key);
 		this.keyTable = this.buildCipherTable(this.key);
 	}
-	
 	public String getKey() {
 		return key;
 	}
