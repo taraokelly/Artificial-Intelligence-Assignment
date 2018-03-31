@@ -23,7 +23,16 @@ public class Runner {
 				default: 
 					ReadFile frc = new ReadFile(option);
 					if(frc.getFileContents() != null){
-						System.out.println(frc.getFileContents());
+						//System.out.println(frc.getFileContents());
+						// Do decryption.
+						String keyword = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGS";
+						//String message = "this is the message";
+						String message = "HERARAHETDUYAZYQ";
+						//String message = frc.getFileContents();
+						PlayFairCipher pf = new PlayFairCipher(keyword, message);
+						String arr[] = pf.decrypt(message).split(" ", 2);
+						System.out.println(arr[0]);
+						
 					}else{
 						System.out.println("Invalid File");
 					}
@@ -32,5 +41,4 @@ public class Runner {
 		// Housekeeping.
 		in.close();
 	}
-
 }

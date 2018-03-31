@@ -19,11 +19,12 @@ public class ReadFile {
 	}
 	
 	private Boolean isFile(){
-		//Ternary statement that calls isTextFile() if it is a valid file, or returns false.
+		// Ternary statement that calls isTextFile() if it is a valid file, or returns false.
 		return (this.file.exists() && !this.file.isDirectory()) ? isTextFile() : false;
 	}
 	private Boolean isTextFile(){
 		try{  
+			  // Adapted from: http://marxsoftware.blogspot.ie/2015/02/determining-file-types-in-java.html
 			  return (Files.probeContentType(this.file.toPath()).equalsIgnoreCase(this.fileType));
 		   }  
 		   catch (IOException ioException){  
