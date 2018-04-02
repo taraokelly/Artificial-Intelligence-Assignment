@@ -2,48 +2,67 @@ package ie.gmit.sw;
 
 import java.util.Scanner;
 
-import ie.gmit.sw.cipher.PlayFairCipher;
-import ie.gmit.sw.file.ReadFile;
-import ie.gmit.sw.file.WriteFile;
+import ie.gmit.sw.cipherbreaker.*;
+import ie.gmit.sw.file.ReadTextFileLine;
+import ie.gmit.sw.file.WriteTextFileLine;
 
 public class Runner {
+	
+	WriteTextFileLine wf = new WriteTextFileLine("./DecryptedFile.txt");
+	CipherBreakerFactory factory = new CipherBreakerFactory();
+	String option = null;
+	Integer temp, trans;
+	
+	public void menu(Scanner in,Boolean running){
+		System.out.println("=====================================================\n"+
+						   "                        Menu                         \n"+
+						   "=====================================================\n\n"+
+							"Enter the root path for the file you wish to decrypt:");
+		System.out.println("[ESC to terminate]");
+		option = in.nextLine();
+		
+		switch (option) {	
+			case "ESC": 
+				running = false;
+				break;
+			default: 
+				ReadTextFileLine frc = new ReadTextFileLine(option);
+				
+				if(frc.getFileContents() != null){
+					System.out.println("Enter temperature:");
+					temp = validateIntInput(in);
+					in.nextLine();
+					
+					System.out.println("Enter transition:");
+					trans = validateIntInput(in);
+					in.nextLine();
+					
+					CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
+					System.out.println("Attempting to break cipher...\n");
+					sa.breakCipher();
+					System.out.println("Saving results...\n");
+					System.out.println(wf.writeFile(sa.getPlainText()));
+				}else{
+					System.out.println("Invalid File");
+				}
+		}
+	}
+	public Integer validateIntInput(Scanner in){
+		while (!in.hasNextInt()) {
+		   System.out.println("Invalid datatype. Enter whole number.");
+		   in.nextLine();
+		}
+		return in.nextInt();
+	}
 
 	public static void main(String[] args) {
-		
-		WriteFile wf = new WriteFile("./DecryptedFile.txt");
 		Scanner in = new Scanner(System.in);
-		String option = null;
-		boolean running = true;
+		Boolean running = true;
 		
 		while(running){	
-			System.out.println("=====================================================\n"+
-							   "=====================================================\n"+
-								"Enter the root path for the file you wish to decrypt:");
-			System.out.println("[ESC to terminate]");
-			option = in.nextLine();//"C:/Users/Tara/Documents/Artifical Intelligence/Assignment/hobbit.txt"
-			
-			switch (option) {	
-				case "ESC": 
-					running = false;
-					break;
-				default: 
-					//ReadFile frc = new ReadFile(option);
-					ReadFile frc = new ReadFile("C:/Users/Tara/Documents/Artifical Intelligence/Assignment/ex.txt");
-					
-					if(frc.getFileContents() != null){
-						
-						String keyword = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGS";
-						String message = frc.getFileContents();
-						
-						PlayFairCipher pf = new PlayFairCipher();
-						pf.setKey(keyword);
-						
-						wf.writeFile(pf.decrypt(message));
-						
-					}else{
-						System.out.println("Invalid File");
-					}
-			}
+			Runner r = new Runner();
+			r.menu(in, running);
+			System.out.println();
 		}
 		// Housekeeping.
 		in.close();
