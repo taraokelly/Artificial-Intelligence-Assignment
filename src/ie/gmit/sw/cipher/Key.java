@@ -1,8 +1,10 @@
 package ie.gmit.sw.cipher;
-
-public abstract class Key implements Keyator {
+/*
+ * Simple Key POJO.
+ */
+public class Key implements Keyator {
 	private String key;
-	
+	// Getters and setters.
 	public String getKey() {
 		return key;
 	}

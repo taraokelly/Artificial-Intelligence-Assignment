@@ -1,9 +1,11 @@
 package ie.gmit.sw.cipherbreaker;
 
 import ie.gmit.sw.cipherbreaker.sa.SimulatedAnnealingCipherBreaker;
-
+/*
+ * Factory class for interchangeable cipher breaker techniques.
+ */
 public class CipherBreakerFactory {
-	
+	// Factory can take multiple param types - like the simulated annealing class taking two ints and a string.
 	public CipherBreakator getCipherBreaker(String type){  
 		return null;
 	}

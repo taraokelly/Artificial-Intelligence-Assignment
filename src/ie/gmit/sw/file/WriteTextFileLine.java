@@ -2,7 +2,9 @@ package ie.gmit.sw.file;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
+/*
+ * Write single string to text file.
+ */
 public class WriteTextFileLine extends WriteTextFile{
 	
 	public WriteTextFileLine(String fileName) {

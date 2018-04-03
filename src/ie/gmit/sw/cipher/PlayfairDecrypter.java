@@ -1,7 +1,9 @@
 package ie.gmit.sw.cipher;
-
+/*
+ * Decrypts the Playfair cipher. No local variables for easy decryption with multiple keys.
+ */
 public class PlayfairDecrypter implements Decryptable{
-
+	// Decrypts a given cipher text with a given key.
 	public String decrypt(String cipherText, String key) {
 		String[] d = this.createDigrams(cipherText);
 		StringBuilder plainText = new StringBuilder();
@@ -22,20 +24,18 @@ public class PlayfairDecrypter implements Decryptable{
             	c1 = key.charAt(row1 * 5 + col2);
             	c2 = key.charAt(row2 * 5 + col1);
             }
-            
             plainText.append(Character.toString(c1) + Character.toString(c2));
 		}
 		return plainText.toString();
 	}
+	// Creates substrings of two letters each.
 	public String[] createDigrams(String encMessage) {
 		String digrams[] = new String[encMessage.length() /2];
 		int i = 0;
-		
 		for (int j = 0; j < encMessage.length()-1; j = j + 2) {
 			 digrams[i] = encMessage.substring(j, j + 2);
 	         i++;
 		}
-		
 		return digrams;
 	}
 }

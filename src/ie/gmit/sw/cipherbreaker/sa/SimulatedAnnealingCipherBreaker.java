@@ -5,7 +5,9 @@ import java.util.Map;
 import ie.gmit.sw.cipher.PlayfairDecrypter;
 import ie.gmit.sw.cipherbreaker.CipherBreakator;
 import ie.gmit.sw.file.ReadTextFileGram;
-
+/*
+ * Here the set up, comparisons and operations required for the simulated annealing happens.
+ */
 public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 	
 	private KeyNode ks;
@@ -31,7 +33,7 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 		this.temperature = temperature;
 		this.transitions = transitions;
 	}
-	
+	// Method required to be implemented by the Cipher Breakator interface.
 	public void breakCipher() {
 		String parentKey = ks.getParentNode();	
 		this.setUp(parentKey); 
@@ -40,6 +42,7 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 	// Set up starting node.
 	private void setUp(String parentKey){
 		double tempS = 0;	
+		// Generate random parent key. Then decrypt cipher text with the key.
 		parentKey = ks.getParentNode();
 		this.setPlainText(pf.decrypt(this.getCipherText(), parentKey));	
 		this.generate4Grams(this.getPlainText());
@@ -52,33 +55,35 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 		}		
 		this.setKeyScore(tempS);
 	}
-	// Simulated annealing.
+	// Simulated annealing - heuristic evaluation function.
 	private void simulatedAnnealing(String parentKey){
 		String key;
 		for (int i = temperature; i > 0; i--) {
 			for (int j = transitions; j > 0; j--) {
 				ks.shuffleKey(parentKey);
 				key = ks.getNode();
-				double s = 0, d;
+				double score = 0, delta;
 				this.setPlainText(pf.decrypt(this.getCipherText(), key));	
 				this.generate4Grams(this.getPlainText());	
-				// Calculate the score.
+				// Calculate the score/fitness.
 				for (String k : grams) {
 					if (gramMap.keySet().contains(k)) {
 						double probability = (Math.log10(gramMap.get(k).doubleValue()) / Math.log10(rg.getFourGramCount()));
-						s += probability;
+						score += probability;
 					}			
 				}		
 				// Calculate distance to see which key is better.
-				d = s - this.getKeyScore();
-				if(d > 0) {
+				delta = score - this.getKeyScore();
+				// If current key better...
+				if(delta > 0) {
 					parentKey = key;
-					this.setKeyScore(s);
-				}else if(d < 0){
-					double p = Math.pow(Math.E,(d/temperature));
-					if (p > 0.5) {
+					this.setKeyScore(score);
+				}// If parent key better...
+				else if(delta < 0){
+					double probability = Math.pow(Math.E,(delta/temperature));
+					if (probability > 0.5) {
 						parentKey = key;
-						this.setKeyScore(s);
+						this.setKeyScore(score);
 					}
 				}
 			}
@@ -94,12 +99,15 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 	         i++;
 		}
 	}
-	
+	// Getters and setters.
 	private double getKeyScore() {
 		return keyScore;
 	}
 	private void setKeyScore(double keyScore) {		
 		this.keyScore = keyScore;
+	}
+	public String getCurrentKey() {
+		return ks.getNode();
 	}
 	public String getCipherText() {
 		return cipherText;

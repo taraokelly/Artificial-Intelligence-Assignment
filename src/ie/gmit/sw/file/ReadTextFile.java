@@ -3,7 +3,10 @@ package ie.gmit.sw.file;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
+/*
+ * Specialized ReadFile implementation to handle the validation and generalization of 
+ * plain text files.
+ */
 public abstract class ReadTextFile implements ReadFile {
 	private File file;
 	private String fileContents;
@@ -29,7 +32,7 @@ public abstract class ReadTextFile implements ReadFile {
 		      return null;
 		   }
 	}
-	
+	// Getters and setters.
 	public String getFileContents() {
 		return fileContents;
 	}

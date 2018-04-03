@@ -4,14 +4,16 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import ie.gmit.sw.cipher.PlayfairKey;
-
+/* 
+ * The KeyNode class holds the key and parent key objects. KeyNode also performs the key 
+ * shuffling required for simulated annealing. 
+ */
 public class KeyNode {
 	
-	/*private String parentNode;
-	private char[][] parentTable;*/
 	private PlayfairKey parentNode = new PlayfairKey();
-	private String node;
-
+	private PlayfairKey node = new PlayfairKey();
+	
+	// Generate the corresponding key from a table.
 	public String generateKey(char[][] keyTable) {
 		String s = "";
 		for (int i = 0; i < 5; i++) {
@@ -21,6 +23,7 @@ public class KeyNode {
 		}
 		return s;
 	}		
+	// Simulated annealing shuffling.
 	public void shuffleKey(String newKey) {		
 		int random = (int)Math.floor(Math.random() * 100);
 		this.setParentTable(newKey);		
@@ -134,7 +137,7 @@ public class KeyNode {
 		table[r2][c2] = temp;
 		this.setParentTable(table);
 	}
-	
+	// Getters and setters.
 	public char[][] getParentTable() {
 		return this.parentNode.getKeyTable();
 	}
@@ -159,6 +162,7 @@ public class KeyNode {
 		char[] k = key.toCharArray();
 		int i;
 		Random random = ThreadLocalRandom.current();
+		// Original shuffle.
 		for (int j = k.length - 1; j > 0; j--) {
 			i = random.nextInt(j + 1);
 			if (i != j) {
@@ -171,9 +175,9 @@ public class KeyNode {
 		this.setParentTable(this.parentNode.getKey());
 	}
 	public String getNode() {
-		return node;
+		return this.node.getKey();
 	}
-	public void setNode(String node) {
-		this.node = node;
+	public void setNode(String key) {
+		this.node.setKey(key);
 	}
 }

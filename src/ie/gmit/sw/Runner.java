@@ -5,14 +5,22 @@ import java.util.Scanner;
 import ie.gmit.sw.cipherbreaker.*;
 import ie.gmit.sw.file.ReadTextFileLine;
 import ie.gmit.sw.file.WriteTextFileLine;
-
+/* 
+ * The Runner class is responsible for displaying the menu, getting user input, and to 
+ * actualize the user controls. 
+ */
 public class Runner {
 	
 	WriteTextFileLine wf = new WriteTextFileLine("./DecryptedFile.txt");
 	CipherBreakerFactory factory = new CipherBreakerFactory();
 	String option = null;
 	Integer temp, trans;
-	
+	/* 
+	 * The user can input a file name to read in, or ESC to exit. 
+	 * If the file is valid, the user will be prompted to enter the temperature and transition values. 
+	 * Upon entering acceptable values, the Cipher Breaker factory will be called to create a SA class.
+	 * After, the results will be saved to the file "DecryptedFile.txt" in the current directory.
+	 */
 	public void menu(Scanner in,Boolean running){
 		System.out.println("=====================================================\n"+
 						   "                        Menu                         \n"+
@@ -40,7 +48,7 @@ public class Runner {
 					CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
 					System.out.println("Attempting to break cipher...\n");
 					sa.breakCipher();
-					System.out.println("Saving results...\n");
+					System.out.println("Final key:" + sa.getCurrentKey()+"\nSaving results...\n");
 					System.out.println(wf.writeFile(sa.getPlainText()));
 				}else{
 					System.out.println("Invalid File");
@@ -54,7 +62,6 @@ public class Runner {
 		}
 		return in.nextInt();
 	}
-
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		Boolean running = true;

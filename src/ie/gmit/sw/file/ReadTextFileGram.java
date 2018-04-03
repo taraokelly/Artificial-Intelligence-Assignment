@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+/*
+ * Read 4-grams from a text file.
+ */
 public class ReadTextFileGram extends ReadTextFile {
 	
 	private Map<String, Integer> fourGramMap;

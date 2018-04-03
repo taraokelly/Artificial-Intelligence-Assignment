@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+/*
+ * Read from text file as a string of one line.
+ */
 public class ReadTextFileLine extends ReadTextFile{
 	
 	public ReadTextFileLine(String name) {

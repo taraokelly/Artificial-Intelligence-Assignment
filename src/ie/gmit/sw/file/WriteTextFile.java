@@ -2,9 +2,11 @@ package ie.gmit.sw.file;
 
 import java.io.File;
 import java.io.PrintWriter;
-
+/*
+ * Specialized WriteFile implementation to handle the validation and generalization of 
+ * plain text files.
+ */
 public abstract class WriteTextFile implements WriteFile {
-	
 	private File file;
 	private PrintWriter pw;
 	
@@ -18,7 +20,7 @@ public abstract class WriteTextFile implements WriteFile {
 	protected Boolean isNotDirectory(){
 		return (!this.getFile().isDirectory()) ? true : false;
 	}
-	
+	// Getters and setters.
 	public File getFile() {
 		return file;
 	}
