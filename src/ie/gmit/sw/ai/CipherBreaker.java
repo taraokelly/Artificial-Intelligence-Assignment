@@ -13,6 +13,8 @@ public class CipherBreaker {
 	
 	WriteTextFileLine wf = new WriteTextFileLine("./DecryptedFile.txt");
 	CipherBreakerFactory factory = new CipherBreakerFactory();
+	Scanner in = new Scanner(System.in);
+	Boolean running = true;
 	String option = null;
 	Integer temp, trans;
 	/* 
@@ -21,38 +23,42 @@ public class CipherBreaker {
 	 * Upon entering acceptable values, the Cipher Breaker factory will be called to create a SA class.
 	 * After, the results will be saved to the file "DecryptedFile.txt" in the current directory.
 	 */
-	public void menu(Scanner in,Boolean running){
-		System.out.println("=====================================================\n"+
-						   "                        Menu                         \n"+
-						   "=====================================================\n\n"+
-							"Enter the root path for the file you wish to decrypt:");
-		System.out.println("[ESC to terminate]");
-		option = in.nextLine();
-		
-		switch (option) {	
-			case "ESC": 
-				running = false;
-				break;
-			default: 
-				ReadTextFileLine frc = new ReadTextFileLine(option);
-				
-				if(frc.getFileContents() != null){
-					System.out.println("Enter temperature:");
-					temp = validateIntInput(in);
-					in.nextLine();
+	public void menu(){
+		while(running){	
+			System.out.println("=====================================================\n"+
+					   "                        Menu                         \n"+
+					   "=====================================================\n\n"+
+						"Enter the root path for the file you wish to decrypt:");
+			System.out.println("[ESC to terminate]");
+			option = in.nextLine();
+			
+			switch (option.toUpperCase()) {	
+				case "ESC": 
+					running = false;
+					System.out.println("in break");
+					break;
+				default: 
+					ReadTextFileLine frc = new ReadTextFileLine(option);
 					
-					System.out.println("Enter transition:");
-					trans = validateIntInput(in);
-					in.nextLine();
-					
-					CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
-					System.out.println("Attempting to break cipher...\n");
-					sa.breakCipher();
-					System.out.println("Final key:" + sa.getCurrentKey()+"\nSaving results...\n");
-					System.out.println(wf.writeFile(sa.getPlainText()));
-				}else{
-					System.out.println("Invalid File");
-				}
+					if(frc.getFileContents() != null){
+						System.out.println("Enter temperature:");
+						temp = validateIntInput(in);
+						in.nextLine();
+						
+						System.out.println("Enter transition:");
+						trans = validateIntInput(in);
+						in.nextLine();
+						
+						CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
+						System.out.println("Attempting to break cipher...\n");
+						sa.breakCipher();
+						System.out.println("Final key:" + sa.getCurrentKey()+"\nSaving results...\n");
+						System.out.println(wf.writeFile(sa.getPlainText()));
+					}else{
+						System.out.println("Invalid File");
+					}
+			}
+			System.out.println();
 		}
 	}
 	public Integer validateIntInput(Scanner in){
@@ -63,15 +69,7 @@ public class CipherBreaker {
 		return in.nextInt();
 	}
 	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		Boolean running = true;
-		
-		while(running){	
-			CipherBreaker r = new CipherBreaker();
-			r.menu(in, running);
-			System.out.println();
-		}
-		// Housekeeping.
-		in.close();
+		CipherBreaker r = new CipherBreaker();
+		r.menu();
 	}
 }
