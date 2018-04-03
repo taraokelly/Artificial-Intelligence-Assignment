@@ -35,7 +35,6 @@ public class CipherBreaker {
 			switch (option.toUpperCase()) {	
 				case "ESC": 
 					running = false;
-					System.out.println("in break");
 					break;
 				default: 
 					ReadTextFileLine frc = new ReadTextFileLine(option);
