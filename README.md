@@ -13,6 +13,7 @@ A Java console application that uses simulated annealing to break a playfair cip
 
 + A menu-driven command line UI.
 + User specified cipher text source.
++ User specified plain text destination.
 + A simulated annealing algorithm to break a Playfair Cipher, using a log-probability
 and *n*-gram statistics as a heuristic evaluation function.
 + The package name **ie.gmit.sw.ai** must be used.
@@ -26,6 +27,8 @@ and *n*-gram statistics as a heuristic evaluation function.
   + Amply abstracted.
   
 ## UML Diagram
+
+![alt text](https://github.com/taraokelly/Artificial-Intelligence-Assignment/blob/master/img/UML.PNG "UML")
 
 ## How to Run
 
