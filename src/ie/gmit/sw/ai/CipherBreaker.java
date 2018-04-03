@@ -40,7 +40,9 @@ public class CipherBreaker {
 					ReadTextFileLine frc = new ReadTextFileLine(option);
 					
 					if(frc.getFileContents() != null){
-						System.out.println("Enter temperature:");
+						// As described by Michael J. Cowan in Cryptologia 2008.
+						// https://learnonline.gmit.ie/pluginfile.php/329076/mod_resource/content/1/sa-cryptologia.pdf
+						System.out.format("Enter temperature:\n[Calculations suggest: %d]\n",Math.round(10 + 0.087 * (frc.getFileContents().length() - 84)));
 						temp = validateIntInput(in);
 						in.nextLine();
 						
@@ -54,7 +56,7 @@ public class CipherBreaker {
 						System.out.println("Final key:" + sa.getCurrentKey()+"\n\nEnter destination:");
 						option = in.nextLine();
 						wf.setFile(option);
-						System.out.println("\nSaving results...\n");
+						System.out.println("Saving results...\n");
 						System.out.println(wf.writeFile(sa.getPlainText()));
 					}else{
 						System.out.println("Invalid File");
