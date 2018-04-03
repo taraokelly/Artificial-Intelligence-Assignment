@@ -1,4 +1,4 @@
-package ie.gmit.sw.cipher;
+package ie.gmit.sw.ai.cipher;
 
 public interface Keyator {
 	public String getKey();

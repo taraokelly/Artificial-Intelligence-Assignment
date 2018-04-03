@@ -1,4 +1,4 @@
-package ie.gmit.sw.cipher;
+package ie.gmit.sw.ai.cipher;
 /*
  * Decrypts the Playfair cipher. No local variables for easy decryption with multiple keys.
  */

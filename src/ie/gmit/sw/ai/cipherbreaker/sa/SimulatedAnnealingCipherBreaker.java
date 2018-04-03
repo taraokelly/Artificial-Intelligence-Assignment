@@ -1,10 +1,10 @@
-package ie.gmit.sw.cipherbreaker.sa;
+package ie.gmit.sw.ai.cipherbreaker.sa;
 
 import java.util.Map;
 
-import ie.gmit.sw.cipher.PlayfairDecrypter;
-import ie.gmit.sw.cipherbreaker.CipherBreakator;
-import ie.gmit.sw.file.ReadTextFileGram;
+import ie.gmit.sw.ai.cipher.PlayfairDecrypter;
+import ie.gmit.sw.ai.cipherbreaker.CipherBreakator;
+import ie.gmit.sw.ai.file.ReadTextFileGram;
 /*
  * Here the set up, comparisons and operations required for the simulated annealing happens.
  */

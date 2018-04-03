@@ -1,4 +1,4 @@
-package ie.gmit.sw.cipher;
+package ie.gmit.sw.ai.cipher;
 /*
  * Inherits String "key" and "key" getter and setters, from "Key" class.
  * Besides that, its just a plain ol' POJO.

@@ -1,4 +1,4 @@
-package ie.gmit.sw.cipherbreaker;
+package ie.gmit.sw.ai.cipherbreaker;
 
 public interface CipherBreakator {
 	public void breakCipher();

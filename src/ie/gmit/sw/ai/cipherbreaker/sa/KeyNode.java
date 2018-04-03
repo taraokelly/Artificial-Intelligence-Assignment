@@ -1,9 +1,9 @@
-package ie.gmit.sw.cipherbreaker.sa;
+package ie.gmit.sw.ai.cipherbreaker.sa;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import ie.gmit.sw.cipher.PlayfairKey;
+import ie.gmit.sw.ai.cipher.PlayfairKey;
 /* 
  * The KeyNode class holds the key and parent key objects. KeyNode also performs the key 
  * shuffling required for the simulated annealing. 

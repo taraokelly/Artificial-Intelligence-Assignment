@@ -1,6 +1,6 @@
-package ie.gmit.sw.cipherbreaker;
+package ie.gmit.sw.ai.cipherbreaker;
 
-import ie.gmit.sw.cipherbreaker.sa.SimulatedAnnealingCipherBreaker;
+import ie.gmit.sw.ai.cipherbreaker.sa.SimulatedAnnealingCipherBreaker;
 /*
  * Factory class for interchangeable cipher breaker techniques.
  */

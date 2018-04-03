@@ -1,10 +1,10 @@
-package ie.gmit.sw;
+package ie.gmit.sw.ai;
 
 import java.util.Scanner;
 
-import ie.gmit.sw.cipherbreaker.*;
-import ie.gmit.sw.file.ReadTextFileLine;
-import ie.gmit.sw.file.WriteTextFileLine;
+import ie.gmit.sw.ai.cipherbreaker.*;
+import ie.gmit.sw.ai.file.ReadTextFileLine;
+import ie.gmit.sw.ai.file.WriteTextFileLine;
 /* 
  * The Runner class is responsible for displaying the menu, getting user input, and to 
  * actualize the user controls. 

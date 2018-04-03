@@ -1,4 +1,4 @@
-package ie.gmit.sw.file;
+package ie.gmit.sw.ai.file;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package ie.gmit.sw.cipher;
+package ie.gmit.sw.ai.cipher;
 /*
  * Simple Key POJO.
  */
