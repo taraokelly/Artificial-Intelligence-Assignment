@@ -42,21 +42,21 @@ public class CipherBreaker {
 					if(frc.getFileContents() != null){
 						// As described by Michael J. Cowan in Cryptologia 2008.
 						// https://learnonline.gmit.ie/pluginfile.php/329076/mod_resource/content/1/sa-cryptologia.pdf
-						System.out.format("Enter temperature:\n[Calculations suggest: %d]\n",Math.round(10 + 0.087 * (frc.getFileContents().length() - 84)));
+						System.out.format("\nEnter temperature:\n[Calculations suggest: %d]\n",Math.round(10 + 0.087 * (frc.getFileContents().length() - 84)));
 						temp = validateIntInput(in);
 						in.nextLine();
 						
-						System.out.println("Enter transition:");
+						System.out.println("\nEnter transition:");
 						trans = validateIntInput(in);
 						in.nextLine();
 						
 						CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
-						System.out.println("Attempting to break cipher...\n");
+						System.out.println("\nAttempting to break cipher...\n");
 						sa.breakCipher();
-						System.out.println("Final key:" + sa.getCurrentKey()+"\n\nEnter destination:");
+						System.out.println("\nFinal key:" + sa.getCurrentKey()+"\n\nEnter destination:");
 						option = in.nextLine();
 						wf.setFile(option);
-						System.out.println("Saving results...\n");
+						System.out.println("\nSaving results...\n");
 						System.out.println(wf.writeFile(sa.getPlainText()));
 					}else{
 						System.out.println("Invalid File");

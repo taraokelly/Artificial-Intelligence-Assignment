@@ -18,9 +18,9 @@ public class WriteTextFileLine extends WriteTextFile{
 			try {
 				this.setPw(new PrintWriter(this.getFile().getName()));
 				getPw().print(text);
+				status = "Save successful. File location:\n\t" + this.getFile().getParentFile().getAbsolutePath();
 				// Got to clean up that house.
 				getPw().close();
-				status = "Save successful. File location:\n\t" + this.getFile().getParentFile().getAbsolutePath();
 			} catch (FileNotFoundException e) {}
 			catch (NullPointerException e) {}
 			catch (Exception e) {}
