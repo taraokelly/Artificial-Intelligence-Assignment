@@ -85,7 +85,9 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 					this.setKeyScore(score);
 				}// If parent key better...
 				else if(delta < 0){
-					double probability = Math.pow(Math.E,(delta/temperature));
+					// Math.pow(Math.E,(delta/temperature)) was generating probabilities between 0.8-1 not 0-1. 
+					double probability = Math.pow(Math.E,((delta*2)/(temperature/2)));
+					System.out.println(probability);
 					if (probability > 0.5) {
 						parentKey = key;
 						this.setKeyScore(score);
