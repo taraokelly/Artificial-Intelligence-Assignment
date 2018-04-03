@@ -60,6 +60,7 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 		String key;
 		for (int i = temperature; i > 0; i--) {
 			for (int j = transitions; j > 0; j--) {
+				// Key shuffling delegated to KeyNode class.
 				ks.shuffleKey(parentKey);
 				key = ks.getNode();
 				double score = 0, delta;

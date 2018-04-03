@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import ie.gmit.sw.cipher.PlayfairKey;
 /* 
  * The KeyNode class holds the key and parent key objects. KeyNode also performs the key 
- * shuffling required for simulated annealing. 
+ * shuffling required for the simulated annealing. 
  */
 public class KeyNode {
 	
