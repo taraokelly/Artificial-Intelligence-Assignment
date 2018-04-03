@@ -9,7 +9,7 @@ import ie.gmit.sw.ai.file.WriteTextFileLine;
  * The Runner class is responsible for displaying the menu, getting user input, and to 
  * actualize the user controls. 
  */
-public class Runner {
+public class CipherBreaker {
 	
 	WriteTextFileLine wf = new WriteTextFileLine("./DecryptedFile.txt");
 	CipherBreakerFactory factory = new CipherBreakerFactory();
@@ -67,7 +67,7 @@ public class Runner {
 		Boolean running = true;
 		
 		while(running){	
-			Runner r = new Runner();
+			CipherBreaker r = new CipherBreaker();
 			r.menu(in, running);
 			System.out.println();
 		}
