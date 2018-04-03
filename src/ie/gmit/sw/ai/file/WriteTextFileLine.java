@@ -22,6 +22,8 @@ public class WriteTextFileLine extends WriteTextFile{
 				getPw().close();
 				status = "Save successful. File location:\n\t" + this.getFile().getParentFile().getAbsolutePath();
 			} catch (FileNotFoundException e) {}
+			catch (NullPointerException e) {}
+			catch (Exception e) {}
 		}
 		return status;
 	}

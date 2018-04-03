@@ -28,7 +28,7 @@ public class CipherBreaker {
 			System.out.println("=====================================================\n"+
 					   "                        Menu                         \n"+
 					   "=====================================================\n\n"+
-						"Enter the root path for the file you wish to decrypt:");
+						"Enter the path for the file you wish to decrypt:");
 			System.out.println("[ESC to terminate]");
 			option = in.nextLine();
 			
@@ -51,7 +51,10 @@ public class CipherBreaker {
 						CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
 						System.out.println("Attempting to break cipher...\n");
 						sa.breakCipher();
-						System.out.println("Final key:" + sa.getCurrentKey()+"\nSaving results...\n");
+						System.out.println("Final key:" + sa.getCurrentKey()+"\n\nEnter destination:");
+						option = in.nextLine();
+						wf.setFile(option);
+						System.out.println("\nSaving results...\n");
 						System.out.println(wf.writeFile(sa.getPlainText()));
 					}else{
 						System.out.println("Invalid File");
