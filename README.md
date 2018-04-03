@@ -4,7 +4,7 @@ A Java console application that uses simulated annealing to break a playfair cip
 ## Table of Contents
 
 + [Requirements](#initial-plan)
-+ [Features](#additional-oo-features)
++ [Additional Features](#additional-features)
 + [UML Diagram](#uml-diagram)
 + [How to Run](#how-to-run)
 + [References](#references)
@@ -20,7 +20,7 @@ and *n*-gram statistics as a heuristic evaluation function.
 
 ## Additional Features
 
-+ Input validation - adding to the robustness of the application.
++ Input and file validation - adding to the robustness of the application.
 + Object Oriented Design ([UML](#uml-diagram)):
   + Cipher breaker factory.
   + Amply abstracted.
@@ -28,6 +28,12 @@ and *n*-gram statistics as a heuristic evaluation function.
 ## UML Diagram
 
 ## How to Run
+
+Open the root of this repository in the command prompt, and run the following command: 
+
+```
+java –cp ./playfair.jar ie.gmit.sw.ai.CipherBreaker
+```
 
 ## References
 
