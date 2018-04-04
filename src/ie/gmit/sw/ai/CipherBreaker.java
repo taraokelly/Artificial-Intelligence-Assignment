@@ -38,11 +38,10 @@ public class CipherBreaker {
 					break;
 				default: 
 					ReadTextFileLine frc = new ReadTextFileLine(option);
-					
 					if(frc.getFileContents() != null){
 						// As described by Michael J. Cowan in Cryptologia 2008.
 						// https://learnonline.gmit.ie/pluginfile.php/329076/mod_resource/content/1/sa-cryptologia.pdf
-						System.out.format("\nEnter temperature:\n[Calculations suggest: %d]\n",Math.round(10 + 0.087 * (frc.getFileContents().length() - 84)));
+						System.out.format("\nEnter temperature:\n[Calculations suggest: %d]\n",Math.round((10 + 0.087 * (frc.getFileContents().length() - 84))/4.5));
 						temp = validateIntInput(in);
 						in.nextLine();
 						

@@ -86,7 +86,18 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 				}// If parent key better...
 				else if(delta < 0){
 					// Math.pow(Math.E,(delta/temperature)) was generating probabilities between 0.8-1 not 0-1. 
-					double probability = Math.pow(Math.E,((delta*2)/(temperature/2)));
+					
+					/*
+					 * UPDATE: ^^ this was because the calculated temperature was wrong. 
+					 * 
+					 * Using Math.pow(Math.E,((delta*2)/(temperature/2))) instead made the probabilities work with 
+					 * the suggested temperature from the calculation. 
+					 * 
+					 * Revered back to the formula from the project specification. Also lowered the resulting 
+					 * temperature suggestion - making the suggestion more relevant to this algorithm but decreasing 
+					 * the suggestion's accuracy.  
+					 */
+					double probability = Math.pow(Math.E,(delta/temperature));//Math.pow(Math.E,((delta*2)/(temperature/2)));
 					if (probability > 0.5) {
 						parentKey = key;
 						this.setKeyScore(score);
