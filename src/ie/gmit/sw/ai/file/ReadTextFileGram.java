@@ -11,8 +11,7 @@ import java.util.Map;
  */
 public class ReadTextFileGram extends ReadTextFile {
 	
-	private Map<String, Integer> fourGramMap;
-	private long fourGramSum;
+	private Map<String, Double> fourGramMap;
 	
 	public ReadTextFileGram(String name) {
 		super(name);
@@ -20,46 +19,33 @@ public class ReadTextFileGram extends ReadTextFile {
 	
 	// Read in file line by line, and append to string.
 	public void readFile() {
-		fourGramMap = new HashMap<String, Integer>();
-		long sum = 0;
-		String text = null;
+		fourGramMap = new HashMap<String, Double>();
 		// Check validity of file name given.
 		if(isFile()){
 			try {
 				BufferedReader bf = new BufferedReader(new FileReader(this.getFile()));
-				StringBuffer sb = new StringBuffer();
 				String line = null;	
 				while ((line = bf.readLine()) != null) {
 					String[] columns = line.split(" ");
 					
 					if (columns.length >= 2) {
 						String key = columns[0];
-						int value = Integer.parseInt(columns[1]);
+						double value = Double.parseDouble(columns[1]);
 						fourGramMap.put(key,value);
-						sum += value;
 					}	
-					setFourGramCount(sum);
 				}		
-				text = sb.toString();
 				// Housekeeping.
 				bf.close();
 				// Display error in menu.
 			} catch (FileNotFoundException e) {
-				text = null;
+				System.out.println("Error reading 4grams.");
 			} catch (IOException e) {
-				text = null;
+				System.out.println("Error reading 4grams.");
 			} 
 		}
-		this.setFileContents(text);
 	}
 	
-	public Map<String, Integer> getFourGramMap() {
+	public Map<String, Double> getFourGramMap() {
 		return fourGramMap;
-	}
-	public long getFourGramCount() {
-		return fourGramSum;
-	}
-	public void setFourGramCount(long fourGramSum) {
-		this.fourGramSum = fourGramSum;
 	}
 }
