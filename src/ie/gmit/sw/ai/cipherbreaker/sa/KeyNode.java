@@ -24,10 +24,10 @@ public class KeyNode {
 		return s;
 	}		
 	// Simulated annealing shuffling.
-	public String shuffleKey(String newKey) {	
+	public String shuffleKey(String key) {	
 		//System.out.println(newKey);
 		int random = (int)Math.floor(Math.random() * 100);
-		this.setParentTable(newKey);		
+		this.setParentTable(key);		
 		switch (random) {
 			case 1:
 			case 2:
@@ -60,11 +60,9 @@ public class KeyNode {
 				this.swapRandomChars();			
 				break;
 		}
-		//System.out.println(this.generateKey(this.getParentTable()));
-		this.setNode(this.generateKey(this.getParentTable()));
-		return this.generateKey(this.getParentTable());
-		
-		//this.setNode(this.generateKey(this.getParentTable()));
+		String shuffledKey = this.generateKey(this.getParentTable());
+		this.setNode(shuffledKey);
+		return shuffledKey;
 	}
 	// Swap around random rows in the current key node to set as the next child node.
 	private void swapRandomRows() {

@@ -1,6 +1,8 @@
 # Artificial-Intelligence-Assignment
 A Java console application that uses simulated annealing to break a playfair cipher. Fourth Year, Artificial Intelligence, Software Development.
 
+**_Working temperature and transition controls for_** ```ciphertext-2018.txt``` **_are 20 and 50,000._**
+
 ## Table of Contents
 
 + [Requirements](#initial-plan)
@@ -21,6 +23,7 @@ and *n*-gram statistics as a heuristic evaluation function.
 
 ## Additional Features
 
++ ~~Calculation suggestion.~~ Not accurate.
 + Input and file validation - adding to the robustness of the application.
 + Object Oriented Design ([UML](#uml-diagram)):
   + Cipher breaker factory.
