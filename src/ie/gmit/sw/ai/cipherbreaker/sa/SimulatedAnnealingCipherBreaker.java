@@ -40,60 +40,135 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 		/* UPDATE: built diagraphs before and created another decrypt method in playfair accepting the pre-built diagraph instead.
 		 * This prevents the diagraph being built in O(n) time, and will do it in O(1) time. 
 		 */
-		String parentKey = ks.getParentNode();	
+		/*String parentKey = ks.getParentNode();	
 		this.setUp(parentKey); 
-		this.simulatedAnnealing(parentKey);
+		this.simulatedAnnealing(parentKey);*/
+		
+		String parentKey, bestText = null, bestKey = null;
+		double  bestScore = 0;
+		
+		String[] diag = pf.createDiagrams(this.cipherText);
+		
+		parentKey = ks.getParentNode();
+		String txt = pf.decrypt(diag, parentKey);	
+		// Calculate the score.
+		double parentScore = scoreText(txt);
+		bestScore = parentScore;
+		
+		for (int i = this.temperature; i > 10; i--) {
+			for (int j = this.transitions; j > 0; j--) {
+				String key = ks.shuffleKey(parentKey);
+				String text = pf.decrypt(diag, key);
+				System.out.println(text.substring(0, 10));
+				double childScore = scoreText(text);
+				
+				double delta = childScore - parentScore;
+				if(delta > 0){
+					parentKey = key;
+					parentScore = childScore;
+				}else{
+					if((Math.exp(delta/i)) > r.nextDouble()){
+						parentKey = key;
+						parentScore = childScore;
+					}
+				}
+				if(bestScore < parentScore){
+					bestKey = parentKey;
+					bestScore = parentScore;
+					bestText = text;
+					parentKey = key;
+				}
+				
+			}
+		}
+		System.out.println(bestText);
+		System.out.println("LAST K:" + parentKey);
+		this.setPlainText(bestText);
+		System.out.println(getPlainText());
 	}
-	// Set up starting node.
+	/*// Set up starting node.
 	private void setUp(String parentKey){
 		// Generate random parent key. Then decrypt cipher text with the key.
 		parentKey = ks.getParentNode();
 		this.setPlainText(pf.decrypt(this.getDiagraphs(), parentKey));	
 		// Calculate the score.
-		double score = scoreText(this.getPlainText());
+		double score = scoreText();
 		this.setKeyScore(score);
 	}
 	// Simulated annealing - heuristic evaluation function.
-	private void simulatedAnnealing(String parentKey){
+	private void simulatedAnnealing(){
 		String key;
-		for (int i = temperature; i > 0; i--) {
+//		for (int i = temperature; i > 10; i--) {
+//			for (int j = transitions; j > 0; j--) {
+//				// Key shuffling delegated to KeyNode class.
+//				ks.shuffleKey(parentKey);
+//				key = ks.getNode();
+//				this.setPlainText(pf.decrypt(this.getDiagraphs(), key));	
+//				// Calculate distance to see which key is better.
+//				double score = scoreText();
+//				double delta = score - this.getKeyScore();
+//				// If current key better...
+//				if(delta > 0) {
+//					parentKey = key;
+//					this.setKeyScore(score);
+//				}// If parent key better...
+//				else {
+//					double probability = Math.pow(Math.E,(delta/i));
+//					// Number getting larger than one as transition iterator decrements. 
+//					if (probability > r.nextDouble()) { 
+//						parentKey = key;
+//						this.setKeyScore(score);
+//					}
+//				}
+//				//System.out.println("Temp " + i +  ". Current key: " + parentKey + " with score " + this.getKeyScore() + ". Decrypted: " + this.getPlainText().substring(0, 20) + "..." + "\n");
+//			}
+		
+		String parent;
+		String text = pf.decrypt(parent, key)
+		double parentScore;
+		double bestScore;
+		
+		
+		for(int i = temperature; i < 0; i--){
 			for (int j = transitions; j > 0; j--) {
-				// Key shuffling delegated to KeyNode class.
-				ks.shuffleKey(parentKey);
-				key = ks.getNode();
-				//double score = 0, delta;
-				this.setPlainText(pf.decrypt(this.getDiagraphs(), key));	
-				// Calculate distance to see which key is better.
-				double score = scoreText(this.getPlainText());
-				double delta = score - this.getKeyScore();
-				// If current key better...
-				if(delta > 0) {
-					parentKey = key;
-					this.setKeyScore(score);
-				}// If parent key better...
-				else {
-					double probability = Math.pow(Math.E,(delta/i));
-					// Number getting larger than one as transition iterator decrements. 
-					if (probability > r.nextDouble()) { 
-						parentKey = key;
-						this.setKeyScore(score);
+				String child = ks.shuffleKey(parent);
+				text = pf.decrypt(child, key);
+				double childScore = scoreText(text);
+				
+				double df = childScore - parentScore;
+				
+				if(df > 0){
+					parent = child;
+					parentScore = childScore;
+				}else{
+					if((Math.exp(df/i)) > 0.5){
+						parent = child;
+						parentScore = childScore;
 					}
 				}
+				
+				if(bestScore < parentScore){
+					String bestKey = parent;
+					bestScore = parentScore;
+					String bestText = text;
+					System.out.println("statistics");
+				}
+				
 			}
 		}	
-	}
+	}*/
 	// Generate 4-mer shingles from text.
-	private double scoreText(String plainText) {
-		double score = 0;
+	private double scoreText(String t) {
+		double s = 0;
 		long count = 457373638373L;
-		for(int i = 0; i < this.getPlainText().length() - 4; i++){
-			Double gram = gramMap.get(this.getPlainText().substring(i,i+4));
+		for(int i = 0; i < t.length() - 4; i++){
+			Double gram = gramMap.get(t.substring(i ,i + 4));
 			if(gram == null) {
 				gram = 1.0;
-			}
-			score += Math.log10((double) gram/ count);
+			} 
+			s += Math.log10((double) (gram/ count));
 		}
-		return score;
+		return s;
 	}
 	// Getters and setters.
 	private double getKeyScore() {

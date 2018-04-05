@@ -52,7 +52,8 @@ public class CipherBreaker {
 						CipherBreakator sa = factory.getCipherBreaker("SA", temp, trans, frc.getFileContents());
 						System.out.println("\nAttempting to break cipher...\n");
 						sa.breakCipher();
-						System.out.println("\nFinal key:" + sa.getCurrentKey()+"\n\nEnter destination:");
+						//System.out.println("\nFinal key:" + sa.getCurrentKey()+"\n\nEnter destination:");
+						System.out.println("\nEnter destination:");
 						option = in.nextLine();
 						wf.setFile(option);
 						System.out.println("\nSaving results...\n");

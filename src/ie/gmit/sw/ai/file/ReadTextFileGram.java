@@ -26,13 +26,8 @@ public class ReadTextFileGram extends ReadTextFile {
 				BufferedReader bf = new BufferedReader(new FileReader(this.getFile()));
 				String line = null;	
 				while ((line = bf.readLine()) != null) {
-					String[] columns = line.split(" ");
-					
-					if (columns.length >= 2) {
-						String key = columns[0];
-						double value = Double.parseDouble(columns[1]);
-						fourGramMap.put(key,value);
-					}	
+					String[] parts = line.split(" "); // Split the line at the space
+					fourGramMap.put(parts[0], Double.parseDouble(parts[1])); // first part is the gram, second is the count
 				}		
 				// Housekeeping.
 				bf.close();
