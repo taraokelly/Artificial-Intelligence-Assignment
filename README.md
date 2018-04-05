@@ -1,7 +1,7 @@
 # Artificial-Intelligence-Assignment
 A Java console application that uses simulated annealing to break a playfair cipher. Fourth Year, Artificial Intelligence, Software Development.
 
-**_Working temperature and transition controls for_** ```ciphertext-2018.txt``` **_are 20 and 50,000._**
+**IMPORTANT: working temperature and transition controls for** ```ciphertext-2018.txt``` **are _20_ and _50,000_.**
 
 ## Table of Contents
 
