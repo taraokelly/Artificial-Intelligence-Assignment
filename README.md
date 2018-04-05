@@ -23,8 +23,8 @@ and *n*-gram statistics as a heuristic evaluation function.
 
 ## Additional Features
 
-+ ~~Calculation suggestion.~~ Not accurate.
-+ ~~Optimized to end when satisfied with key.~~ Any optimizations I considered were fairly hacky. I decided to fully iterate through the loops to heighten the chance of getting the ciphertext decrypted correctly, at the expense of reducing the time of the loop.
++ ~~Calculation suggestion.~~ Not accurate for this version of the S.A. Playfair algorithm.
++ ~~Optimized to end when satisfied with key.~~ Any optimizations I considered were fairly hacky. I decided to fully iterate through the loops to heighten the chance of getting the ciphertext decrypted correctly, at the expense of not reducing the time of the loops.
 + Input and file validation - adding to the robustness of the application.
 + Object Oriented Design ([UML](#uml-diagram)):
   + Cipher breaker factory.

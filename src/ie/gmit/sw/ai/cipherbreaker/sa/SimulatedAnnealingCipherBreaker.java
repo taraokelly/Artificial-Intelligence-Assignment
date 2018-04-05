@@ -56,7 +56,6 @@ public class SimulatedAnnealingCipherBreaker implements CipherBreakator {
 				for (int j = this.transitions; j > 0; j--) {
 					String key = ks.shuffleKey(parentKey);
 					String text = pf.decrypt(diag, key);
-					System.out.println(text.substring(0, 10));
 					double childScore = scoreText(text);
 					
 					double delta = childScore - parentScore;
